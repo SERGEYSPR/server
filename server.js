@@ -77,7 +77,8 @@ app.post('/api/student/add', express.bodyParser(), function (req, res) {
    	if (err) console.log('error when connecting to db:', err);
    });
    
-	res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });    
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+	res.writeHead(200, { 'Content-Type': 'text/json; charset=utf-8' });    
 
 	if (req.body.FirstName === undefined) { res.end("First name must be not null"); return; }
 	if (req.body.SecondName === undefined) { res.end("Second name must be not null"); return; }

@@ -17,11 +17,11 @@
                 success: function (res) {
                     console.log('success');
 
-                    var table = document.getElementById('mytable');
+                    /*var table = document.getElementById('mytable');
 
                     for (var i = 0; i < res.length; i++) {
                         
-                        var row = table.insertRow(table.rows.length + 1);
+                        var row = table.insertRow(i + 1);
                         var y1 = row.insertCell(0);
                         var y2 = row.insertCell(1);
                         var y3 = row.insertCell(2);
@@ -33,7 +33,7 @@
 
                         y1.innerHTML = "" + (i + 1);
                         y2.innerHTML = res[i].SecondName + " " + res[i].FirstName + " " + res[i].MiddleName;
-                    }
+                    }*/
                 },
                 error: function (jqXHR, textStatus, err) {
                     console.log('text status ' + textStatus + ', err ' + err)

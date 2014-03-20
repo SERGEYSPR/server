@@ -8,6 +8,7 @@
     <style>
         body {
             font-family: Arial;
+            font-size: 13px;
             font-weight: lighter;
             margin: 0px;
             padding: 10px;
@@ -37,8 +38,9 @@
          			console.log('success');
          			
          			for (var i = 0; i < res.length; i++) {
-                  	    var div = document.createElement('div');
-                        div.style.padding = '3px';
+         			    var div = document.createElement('div');
+
+         			    $(div).css({ padding: '4px', borderBottom: '1px solid #ccc'});
                         div.id = res[i].Id;
                     	
 					    var name = document.createElement('span');
