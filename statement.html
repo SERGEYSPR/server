@@ -5,31 +5,42 @@
     <meta charset="utf-8" />
     <title></title>
 
-   <script type="text/javascript">
-       var N = 1;
-       function insRow() {
-           var n = 10;
-           var i;
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js" type="text/javascript"></script>
 
-           for (var i = 0; i < n; i++) {
+    <script>
 
-               var x = document.getElementById('mytable').insertRow(N);
-               var y1 = x.insertCell(0);
-               var y2 = x.insertCell(1);
-               var y3 = x.insertCell(2);
-               var y4 = x.insertCell(3);
-               var y5 = x.insertCell(4);
-               var y6 = x.insertCell(5);
-               var y7 = x.insertCell(6);
-               var y8 = x.insertCell(7);
+        function fillList() {
 
-               y1.innerHTML = N; 
-               y2.innerHTML = "Фамилия И.О. " + N;
-               y3.innerHTML = "10001" + N;
-               N = N + 1;
-           }
-       }
-</script>
+            $.ajax({
+                type: 'GET',
+                url: 'http://107.170.103.201/api/student/get',
+                success: function (res) {
+                    console.log('success');
+
+                    var table = document.getElementById('mytable');
+
+                    for (var i = 0; i < res.length; i++) {
+                        
+                        var row = table.insertRow(table.rows.length + 1);
+                        var y1 = row.insertCell(0);
+                        var y2 = row.insertCell(1);
+                        var y3 = row.insertCell(2);
+                        var y4 = row.insertCell(3);
+                        var y5 = row.insertCell(4);
+                        var y6 = row.insertCell(5);
+                        var y7 = row.insertCell(6);
+                        var y8 = row.insertCell(7);
+
+                        y1.innerHTML = "" + (i + 1);
+                        y2.innerHTML = res[i].SecondName + " " + res[i].FirstName + " " + res[i].MiddleName;
+                    }
+                },
+                error: function (jqXHR, textStatus, err) {
+                    console.log('text status ' + textStatus + ', err ' + err)
+                }
+            });
+        }
+    </script>
 
     <style type="text/css">
 
@@ -41,6 +52,14 @@
             padding: 10px;
         }
 
+        .paramsDiv {
+            padding: 3px;
+        }
+
+        .label {
+            display: inline-block;
+            width: 100px;
+        }
 
         .tableHead {
             text-align: center;
@@ -52,25 +71,75 @@
 <body>
     <div style="border-bottom: 1px solid #ccc; font-size: 24px; margin-bottom: 15px; padding-bottom: 7px;">Экзаменационная ведомость</div>
 
-    <table>
-  <tr>
-    <td class="auto-style9">Факультет </td><td class="auto-style11"><select name="h1" style="width: 220px"><option selected="selected" value=""></option><option selected="selected" value="">Математики и ИТ</option><option selected="selected" value="">ФЭТ</option><option selected="selected" value=""></option></select>&nbsp;</td>
- <td class="auto-style10">Семестр </td><td><select name="h4" style="width: 100px"><option selected="selected" value="">Первый</option><option selected="selected" value="">Второй</option><option selected="selected" value=""></option></select></td>
-       </tr>
-        
-            <td class="auto-style9">Специальность</td><td class="auto-style11"><select name="h2" style="width: 220px"><option selected="selected" value=""></option><option selected="selected" value="">Программная инженерия</option><option selected="selected" value=""></option></select></td>
-             <td class="auto-style10"> Группа</td><td> <select name="h5" style="width: 100px"><option selected="selected" value="">101</option><option selected="selected" value="">102</option><option selected="selected" value="">103</option><option selected="selected" value="">104</option><option selected="selected" value="">105</option><option selected="selected" value="">201</option><option selected="selected" value="">202</option><option selected="selected" value="">203</option><option selected="selected" value="">204</option><option selected="selected" value="">205</option><option selected="selected" value="">301</option><option selected="selected" value="">302</option><option selected="selected" value="">303</option><option selected="selected" value="">304</option><option selected="selected" value="">305</option><option selected="selected" value="">401</option><option selected="selected" value="">402</option><option selected="selected" value="">403</option><option selected="selected" value="">404</option><option selected="selected" value="">405</option><option selected="selected" value="">101М</option><option selected="selected" value="">102М</option><option selected="selected" value="">201М</option><option selected="selected" value="">202М</option><option selected="selected" value=""></option></select>
-</td>
-        </tr>
-        <tr><td class="auto-style9">
-        Дисциплина </td> <td class="auto-style11"><select name="h3" style="width: 220px"><option selected="selected" value="">Системное программирование</option><option selected="selected" value=""></option></select></td>
-       <td class="auto-style10">Экзаменатор</td><td> <select name="h5" style="width: 100px"><option selected="selected" value="">Шамаев А.В.</option><option selected="selected" value=""></option></select></td>
-</tr>
-</table>
-<script src="1.js"></script>
+    <div class="paramsDiv">
+        <div class="label">Факультет</div>
+        <select id="faculty" style="width: 220px">
+            <option selected="selected">Математики и ИТ</option>
+            <option value="">ФЭТ</option>
+        </select>
+    </div>
 
+    <div class="paramsDiv">
+        <div class="label">Семестр</div>
+        <select id="semester" style="width: 220px">
+            <option selected="selected">Первый</option>
+            <option value="">Второй</option>
+        </select>
+    </div>
 
-    <input type="button" onclick="insRow();" value="Загрузить из базы" style="padding: 5px 10px; margin: 5px;">
+    <div class="paramsDiv">
+        <div class="label">Специальность</div>
+        <select id="spec" style="width: 220px">
+            <option selected="selected">Программная инженерия</option>
+        </select>
+    </div>
+
+    <div class="paramsDiv">
+        <div class="label">Группа</div>
+        <select id="group" style="width: 220px">
+            <option selected="selected" value="">101</option>
+            <option value="">102</option>
+            <option value="">103</option>
+            <option value="">104</option>
+            <option value="">105</option>
+            <option value="">201</option>
+            <option value="">202</option>
+            <option value="">203</option>
+            <option value="">204</option>
+            <option value="">205</option>
+            <option value="">301</option>
+            <option value="">302</option>
+            <option value="">303</option>
+            <option value="">304</option>
+            <option value="">305</option>
+            <option value="">401</option>
+            <option value="">402</option>
+            <option value="">403</option>
+            <option value="">404</option>
+            <option value="">405</option>
+            <option value="">101М</option>
+            <option value="">102М</option>
+            <option value="">201М</option>
+            <option value="">202М</option>
+            <option value=""></option>
+        </select>
+    </div>
+
+    <div class="paramsDiv">
+        <div class="label">Дисциплина</div>
+        <select style="width: 220px">
+            <option selected="selected">Системное программирование</option>
+        </select>
+    </div>
+
+    <div class="paramsDiv">
+        <div class="label">Экзаменатор</div>
+        <select style="width: 220px">
+            <option selected="selected">Шамаев А.В.</option>
+        </select>
+    </div>
+    
+    <input type="button" onclick="fillList();" value="Загрузить из базы" style="padding: 5px 10px; margin: 5px;">
     <input type="button" onclick="print();" value="Распечатать" style="padding: 5px 10px; margin: 5px; " />
                
     <table border="1" id="mytable" style="border-collapse: collapse; border: 1px solid black; width:1000px;">
