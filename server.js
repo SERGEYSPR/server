@@ -56,9 +56,7 @@ app.get('/api/student/get', function (req, res) {
         if (err) console.log('error when connecting to db:', err);
     });
 
-    res.setHeader('Access-Control-Allow-Origin', 'http://107.170.103.201/');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
     connection.query('SELECT * FROM students;', function (err, rows, fields) {
         if (err) throw err;

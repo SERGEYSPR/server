@@ -31,27 +31,15 @@
 
         function fillStudentList() {
 
-            var xhr = new XMLHttpRequest();
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4) {
-                    alert(xhr.responseText);
-                }
-            }
-
-            xhr.open('GET', 'http://example.com', true);
-            xhr.send(null);
-
-            /*
             $.ajax({
                 type: 'GET',
-                dataType: "jsonp",
-                contentType: "text/json",
+                dataType: "text",
+                contentType: "application/json",
 			    url: 'http://107.170.103.201/api/student/get',
          		success: function(res) {
          			console.log('success');
          			
-         			res = JSON.parse(res);
+         			alert(res);
 
          			for (var i = 0; i < res.length; i++) {
          			    var div = document.createElement('div');
@@ -96,7 +84,7 @@
          	    error: function(jqXHR, textStatus, err){
              	    console.log('text status ' + textStatus + ', err ' + err)
            	    }
-		    });			*/
+		    });			
         }
 
     </script>
