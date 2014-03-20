@@ -32,11 +32,15 @@
         function fillStudentList() {
 
             $.ajax({
-			    type: 'GET',
+                type: 'GET',
+                dataType: "jsonp",
+                contentType: "text/json",
 			    url: 'http://107.170.103.201/api/student/get',
          		success: function(res) {
          			console.log('success');
          			
+         			res = JSON.parse(res);
+
          			for (var i = 0; i < res.length; i++) {
          			    var div = document.createElement('div');
 

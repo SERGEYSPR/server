@@ -45,6 +45,10 @@ app.get('/add.student', function (req, res) {
 
 app.get('/api/student/get', function (req, res) {
 
+    if (req.headers['access-control-request-headers']) {
+        res.header('Access-Control-Allow-Headers', req.headers['access-control-request-headers']);
+    }
+
     var connection = mysql.createConnection({
         host: 'localhost',
         database: 'test',
@@ -77,7 +81,6 @@ app.post('/api/student/add', express.bodyParser(), function (req, res) {
    	if (err) console.log('error when connecting to db:', err);
    });
    
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
 	res.writeHead(200, { 'Content-Type': 'text/json; charset=utf-8' });    
 
 	if (req.body.FirstName === undefined) { res.end("First name must be not null"); return; }
