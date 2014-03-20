@@ -10,103 +10,47 @@
        function insRow() {
            var n = 10;
            var i;
-           for (i=0;i<n;i++){
-           var x = document.getElementById('mytable').insertRow(N);
-           var y1 = x.insertCell(0);
-           var y2 = x.insertCell(1);
-           var y3 = x.insertCell(2);
-           var y4 = x.insertCell(3);
-           var y5 = x.insertCell(4);
-           var y6 = x.insertCell(5);
-           var y7 = x.insertCell(6);
-           var y8 = x.insertCell(7);
-           var y9 = x.insertCell(8);
-           y1.innerHTML = N; 
-           y2.innerHTML = "Фамилия И.О. " + N;
-           y3.innerHTML = "10001" + N;
-           N = N + 1;}
-           
+
+           for (var i = 0; i < n; i++) {
+
+               var x = document.getElementById('mytable').insertRow(N);
+               var y1 = x.insertCell(0);
+               var y2 = x.insertCell(1);
+               var y3 = x.insertCell(2);
+               var y4 = x.insertCell(3);
+               var y5 = x.insertCell(4);
+               var y6 = x.insertCell(5);
+               var y7 = x.insertCell(6);
+               var y8 = x.insertCell(7);
+
+               y1.innerHTML = N; 
+               y2.innerHTML = "Фамилия И.О. " + N;
+               y3.innerHTML = "10001" + N;
+               N = N + 1;
+           }
        }
 </script>
 
-    <script language="JavaScript" type="text/javascript">
-
-    function gotolink(what){
-        var selectedopt=what.options[what.selectedIndex]
-        if (document.getElementById && selectedopt.getAttribute("target")=="newwin")
-            window.open(selectedopt.value)
-        else
-            window.location=selectedopt.value
-    }
-   
-</script>
     <style type="text/css">
-        #Button1
-        {
-            margin-bottom: 0px;
+
+        body {
+            font-family: Arial;
+            font-size: 13px;
+            font-weight: lighter;
+            margin: 0px;
+            padding: 10px;
         }
-        .auto-style1
-        {
-            height: 59px;
-        }
-        .auto-style2
-        {
-            height: 59px;
-            width: 200px;
-        }
-        .auto-style3
-        {
-            height: 59px;
-            width: 75px;
-        }
-        .auto-style4
-        {
-            height: 59px;
-            width: 25px;
-        }
-        .auto-style5
-        {
-            height: 59px;
-            width: 76px;
-        }
-        .auto-style6
-        {
-            height: 59px;
-            width: 67px;
-        }
-        .auto-style7
-        {
-            height: 59px;
-            width: 65px;
-        }
-        #button
-        {
-            height: 21px;
-        }
-        .auto-style8
-        {
-            height: 59px;
-            width: 79px;
-        }
-        .auto-style9
-        {
-            width: 130px;
-        }
-        .auto-style10
-        {
-            width: 101px;
-        }
-        .auto-style11
-        {
-            width: 256px;
+
+
+        .tableHead {
+            text-align: center;
         }
     </style>
 
 
 </head>
 <body>
-
-<p>Экзаменационная ведомость</p>
+    <div style="border-bottom: 1px solid #ccc; font-size: 24px; margin-bottom: 15px; padding-bottom: 7px;">Экзаменационная ведомость</div>
 
     <table>
   <tr>
@@ -126,35 +70,20 @@
 <script src="1.js"></script>
 
 
-    <br />
-
- <input type="button" onclick="insRow()" value="Загрузить из базы" style="height: 25px; width: 135px">
-        <input id="button1"  onclick=print() type="button" value="Распечатать" style="height: 25px; width: 135px" />
+    <input type="button" onclick="insRow();" value="Загрузить из базы" style="padding: 5px 10px; margin: 5px;">
+    <input type="button" onclick="print();" value="Распечатать" style="padding: 5px 10px; margin: 5px; " />
                
-    <table align="left" border="1" cellpadding="0" cellspacing="0" id="mytable" style="width:700px;">
-	<br />
-            
-            <tbody>
+    <table border="1" id="mytable" style="border-collapse: collapse; border: 1px solid black; width:1000px;">
 		<tr>
-			<td class="auto-style4"><center>№ <br />  п/п</center> </td>
-			<td class="auto-style2"><center>Фамилия, Имя, Отчество <br /> студента</center> </td>
-			<td class="auto-style3"><center>№ <br />зачетной<br />книжки</center></td>
-            
-            <td class="auto-style5"><center>Отметка<br />о сдаче<br />зачёта/<br />курс.раб</center></td>
-             <td class="auto-style8"><center>Дата<br />приёма<br />зачёта/<br />курс.раб</center></td>
-            <td class="auto-style1"><p><center>Подпись<br />преподавателя</center></p>
-			<td class="auto-style7"><center>Баллы<br />(БаРС)</center></td>
-			<td class="auto-style6"><center>Экзам.<br />оценка </center></td>
-		
-			<td class="auto-style1"><p><center>Подпись<br />преподавателя</center></p>
-			</td>
+		    <td class="tableHead">№ п/п</td>
+            <td class="tableHead" style="width: 250px;">ФИО студента</td>
+            <td class="tableHead">№ зачетной книжки</td>
+            <td class="tableHead" style="width: 110px;">Отметка о сдаче зачёта/курс.раб</td>
+            <td class="tableHead" style="width: 110px;">Дата приёма/зачёта/курс.раб</td>
+            <td class="tableHead">Баллы (БаРС)</td>
+            <td class="tableHead">Экзам. оценка</td>
+            <td class="tableHead" style="width: 150px;">Подпись преподавателя</td>
 		</tr>
-	</tbody>
-</table>
-
-
-    <p>
-        &nbsp;</p>
-
+    </table>
 </body>
 </html>
