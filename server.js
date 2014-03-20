@@ -45,10 +45,6 @@ app.get('/add.student', function (req, res) {
 
 app.get('/api/student/get', function (req, res) {
 
-    if (req.headers['access-control-request-headers']) {
-        res.header('Access-Control-Allow-Headers', req.headers['access-control-request-headers']);
-    }
-
     var connection = mysql.createConnection({
         host: 'localhost',
         database: 'test',
