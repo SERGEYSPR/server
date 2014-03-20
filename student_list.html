@@ -31,6 +31,18 @@
 
         function fillStudentList() {
 
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    alert(xhr.responseText);
+                }
+            }
+
+            xhr.open('GET', 'http://example.com', true);
+            xhr.send(null);
+
+            /*
             $.ajax({
                 type: 'GET',
                 dataType: "jsonp",
@@ -84,7 +96,7 @@
          	    error: function(jqXHR, textStatus, err){
              	    console.log('text status ' + textStatus + ', err ' + err)
            	    }
-		    });			
+		    });			*/
         }
 
     </script>
