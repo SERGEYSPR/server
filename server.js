@@ -7,7 +7,6 @@ var app = express();
 app.use(app.router);
 app.use(express.bodyParser());
 app.use(express.cookieParser());
-app.use(express.session({ secret: '1234567890QWERTY' }));
 
 app.get('/', function (req, res) {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
