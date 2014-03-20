@@ -60,7 +60,7 @@ app.get('/api/student/get', function (req, res) {
         if (err) throw err;
 
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(rows);
+        res.end(JSON.stringify(rows));
     });
 });
 
