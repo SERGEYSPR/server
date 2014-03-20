@@ -56,13 +56,11 @@ app.get('/api/student/get', function (req, res) {
         if (err) console.log('error when connecting to db:', err);
     });
 
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
     connection.query('SELECT * FROM students;', function (err, rows, fields) {
         if (err) throw err;
 
-        res.writeHead(200, { 'Content-Type': 'text/json; charset=utf-8' });
-        res.end(JSON.stringify(rows));
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(rows);
     });
 });
 
