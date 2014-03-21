@@ -16,10 +16,15 @@ app.all('*', function (req, res, next) {
 
 app.get('/', function (req, res) {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.end('Hello!');
+
+    fs.readFile(__dirname + '/index.html', function (err, data) {
+        if (err) { res.end('error'); return; }
+
+        res.end(data.toString('utf-8'));
+    });
 });
 
-app.get('/students', function (req, res) {
+app.get('/student/get', function (req, res) {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
 
     fs.readFile(__dirname + '/student_list.html', function (err, data) {
@@ -39,7 +44,7 @@ app.get('/statement', function (req, res) {
     });
 });
 
-app.get('/add.student', function (req, res) {
+app.get('/student/add', function (req, res) {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
 
     fs.readFile(__dirname + '/add_student.html', function (err, data) {
