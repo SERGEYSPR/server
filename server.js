@@ -73,29 +73,48 @@ app.get('/api/student/get', function (req, res) {
 app.post('/api/student/add', express.bodyParser(), function (req, res) {
 	
 	var connection = mysql.createConnection({
-   	host: 'localhost',
-      database: 'test',
-      user: 'root',
-      password: 'softingen205'
-   });
+   	    host: 'localhost',
+        database: 'test',
+        user: 'root',
+        password: 'softingen205'
+    });
    
-   connection.connect(function (err) {
-   	if (err) console.log('error when connecting to db:', err);
-   });
+    connection.connect(function (err) {
+        if (err) console.log('error when connecting to db:', err);
+    });
    
-	res.writeHead(200, { 'Content-Type': 'text/json; charset=utf-8' });    
-
-	if (req.body.FirstName === undefined) { res.end("First name must be not null"); return; }
+	/*if (req.body.FirstName === undefined) { res.end("First name must be not null"); return; }
 	if (req.body.SecondName === undefined) { res.end("Second name must be not null"); return; }
-	if (req.body.MiddleName === undefined) { res.end("Middle name must be not null"); return; }
+	if (req.body.MiddleName === undefined) { res.end("Middle name must be not null"); return; }*/
    
-   var query = "insert into students (FirstName, SecondName, MiddleName) " + 
-   				"values('" + req.body.FirstName + "', '" + req.body.SecondName + "', '" + req.body.MiddleName + "');"
+	var query = "insert into students (SecondName, FirstName, MiddleName, Birthday, Country, Region, City, District, Town, Street, House, Flat, Phone) " +
+   				"values('" +
+                    req.body.FirstName + "', '" +
+                    req.body.SecondName + "', '" +
+                    req.body.MiddleName + "', '" +
+                    req.body.Birthday + "', '" +
+                    req.body.Country + "', '" +
+                    req.body.Region + "', '" +
+                    req.body.City + "', '" +
+                    req.body.District + "', '" +
+                    req.body.Town + "', '" +
+                    req.body.Street + "', '" +
+                    req.body.House + "', " +
+                    req.body.Flat + ", '" +
+                    req.body.Phone +
+                "');"
    
-   connection.query(query, function (err, rows, fields) {
-   	if (err) res.end("" + err);
-      res.end("OK");
-   });
+	connection.query(query, function (err, rows, fields) {
+
+        if (err) {
+            res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
+            res.end();
+        }
+        else {
+            res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+            res.end();
+        }
+    });
 });
 
 app.post('/api/student/delete', express.bodyParser(), function (req, res) {

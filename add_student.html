@@ -8,36 +8,36 @@
     <style>
         body {
             font-family: Arial;
-            font-size: 1em;
+            font-size: 12px;
             font-weight: lighter;
             margin: 0px;
             padding: 10px;
         }
         
-		  .inputDiv {
-		  		border: 1px solid #ccc;
-		  		border-radius: 8px;
-		  		box-sizing: border-box;
-		  		padding: 5px 10px;
-		  		width: 200px;
-            margin-bottom: 10px;
-		  }        
-        
         .inputField {
-        		outline: none;
-        		border: none;
-        		width: 100%;
+            background-color: #eee;
+        	outline: none;
+        	border: 1px solid #ccc;
+            border-radius: 4px;
+            margin: 5px;
+            padding: 5px 10px;
+        	width: 200px;
         }
         
+        .hint {
+            color: #666;
+            margin-left: 10px;
+        }
+
         .button {
-        		background-color: #ccc;
-        		border: 1px solid #aaa;
-		  		border-radius: 3px;
-		  		box-sizing: border-box;
-		  		color: #333;
-		  		cursor: pointer;
-		  		padding: 3px;
-		  		text-align: center;
+        	background-color: #ccc;
+        	border: 1px solid #aaa;
+		  	border-radius: 3px;
+		  	color: #333;
+		  	cursor: pointer;
+		  	padding: 5px 10px;
+            margin: 5px;
+		  	text-align: center;
         }
 
     </style>
@@ -46,28 +46,59 @@
 	 
     <script>
 		
+        jQuery.support.cors = true;
+
 		function add() {
-			
-			var first = document.getElementById("firstName").value;
-			var second = document.getElementById("secondName").value;
-			var middle = document.getElementById("middleName").value;
-			
-			var params = {};
-			params.FirstName = first;
-			params.SecondName = second;
-			params.MiddleName = middle;
-			
-			$.ajax({
-				type: 'POST',
-				data: params,
-				url: 'http://107.170.103.201/api/student/add',
-         	success: function(res) {
-         		console.log('success' + res);
-         	},
-         	error: function(jqXHR, textStatus, err){
-               console.log('text status ' + textStatus + ', err ' + err)
-           	}
-			});
+
+		    $('#info').text('Не заполнены обязательные поля');
+
+		    var params = {};
+			params.FirstName = document.getElementById("firstName").value;
+			params.SecondName = document.getElementById("secondName").value;
+			params.MiddleName = document.getElementById("middleName").value;
+			params.Birthday = document.getElementById("birthday").value;
+			params.Country = document.getElementById("country").value;
+			params.Region = document.getElementById("region").value;
+			params.City = document.getElementById("city").value;
+			params.District = document.getElementById("district").value;
+			params.Town = document.getElementById("town").value;
+			params.Street = document.getElementById("street").value;
+			params.House = document.getElementById("house").value;
+			params.Flat = document.getElementById("flat").value;
+			params.Phone = document.getElementById("phone").value;
+
+			if (params.FirstName === "" ||
+                params.SecondName === "" ||
+                params.MiddleName === "" ||
+                params.Birthday === "" ||
+                params.Country === "" ||
+                params.Region === "")
+			{
+			    $('#info').text('Не заполнены обязательные поля');
+			    return;
+			}
+
+			var nameRegex = new RegExp("^([А-Я][а-я]+)$");
+
+			if (!params.FirstName.match(nameRegex)) { $('#info').text('Некорретное имя'); return; }
+			if (!params.SecondName.match(nameRegex)) { $('#info').text('Некорретная фамилия'); return; }
+		    if (!params.MiddleName.match(nameRegex)) { $('#info').text('Некоррестное отчество'); return; }
+		    if (!params.Country.match(nameRegex)) { $('#info').text('Некорректная страна'); return; }
+		    if (!params.Region.match(nameRegex)) { $('#info').text('Некоррекстный регион'); return; }
+            	
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', 'http://107.170.103.201/api/student/add', true);
+
+			xhr.onload = function ()
+			{
+			    if ()
+			};
+
+			xhr.onerror = function () {
+			    console.log('There was an error!');
+			};
+
+			xhr.send(params);
 		}		
 		
     </script>
@@ -75,16 +106,35 @@
 </head>
 <body>
 	<div style="border-bottom: 1px solid #ccc; font-size: 24px; margin-bottom: 15px; padding-bottom: 7px;">Добавить студента</div>
-	<div class="inputDiv">
+	<div>
 		<input id="firstName" class="inputField" type="text" placeholder="Имя">
+        <input id="secondName" class="inputField" type="text" placeholder="Фамилия">
+        <input id="middleName" class="inputField" type="text" placeholder="Отчество">
 	</div>
-	<div class="inputDiv">
-		<input id="secondName" class="inputField" type="text" placeholder="Фамилия">
-	</div>
-	<div class="inputDiv">
-		<input id="middleName" class="inputField" type="text" placeholder="Отчество">
-	</div>
+    <div>
+        <input id="birthday" class="inputField" type="text" placeholder="День рождения">
+        <span class="hint">Например: 1994-06-18</span>
+    </div>
+    <div>
+        <input id="country" class="inputField" type="text" placeholder="Страна">
+        <input id="region" class="inputField" type="text" placeholder="Регион">
+    </div>
+    <div>
+        <input id="city" class="inputField" type="text" placeholder="Город">
+    </div>
+    <div>
+        <input id="district" class="inputField" type="text" placeholder="Район">
+        <input id="town" class="inputField" type="text" placeholder="Село">
+    </div>
+    <div>
+        <input id="street" class="inputField" type="text" placeholder="Улица">
+        <input id="house" class="inputField" type="text" placeholder="Дом">
+        <input id="flat" class="inputField" type="number" placeholder="Квартира">
+    </div>
+    <div>
+        <input id="phone" class="inputField" type="text" placeholder="Телефон">
+    </div>
 	<div class="button" style="width: 200px;" onclick="add();">Добавить</div>
-	<div id="info"></div>
+	<div id="info" style="padding: 10px; position: absolute; bottom: 0px;">dfgfdg</div>
 </body>
 </html>
