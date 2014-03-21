@@ -9,7 +9,7 @@ app.use(express.bodyParser());
 app.use(express.cookieParser());
 
 app.all('*', function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://107.170.103.201/");
+    res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     next();
 });
@@ -20,10 +20,6 @@ app.get('/', function (req, res) {
 });
 
 app.get('/students', function (req, res) {
-
-    res.setHeader('Access-Control-Allow-Origin', '107.170.103.201/');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Access-Control-Expose-Headers', '*');
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
 
     fs.readFile(__dirname + '/student_list.html', function (err, data) {
@@ -69,7 +65,7 @@ app.get('/api/student/get', function (req, res) {
     connection.query('SELECT * FROM students;', function (err, rows, fields) {
         if (err) throw err;
 
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
         res.end(JSON.stringify(rows));
     });
 });
