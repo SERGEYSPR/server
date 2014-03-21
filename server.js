@@ -109,13 +109,15 @@ app.post('/api/student/add', express.bodyParser(), function (req, res) {
 
         if (err) {
             res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
-            res.end();
+            res.end(err.toString());
         }
         else {
             res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
             res.end();
         }
-    });
+	});
+
+	connection.end();
 });
 
 app.post('/api/student/delete', express.bodyParser(), function (req, res) {

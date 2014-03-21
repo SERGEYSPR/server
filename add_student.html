@@ -91,11 +91,11 @@
 
 			xhr.onload = function ()
 			{
-			    $('#info').text('Ok');
+			    $('#info').text('/ ' + xhr.status + ' ' + xml.statusText + ' ' + xhr.responseText);
 			};
 
 			xhr.onerror = function () {
-			    $('#info').text('Fail');
+			    $('#info').text('Fail / ' + xhr.status + ' ' + xml.statusText + ' ' + xhr.responseText);
 			};
 
 			xhr.send(params);
