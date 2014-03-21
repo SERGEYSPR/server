@@ -20,19 +20,12 @@
 
         var students = null;
 
-        // включаем поддержку междоменных запросов
         jQuery.support.cors = true;
-
-        // на событие полной загрузки страницы вешаем обработчик
         $(document).ready(function () {
 			
-            // создаем объект, который может загружать данные с сервера без перезагрузки
             var xhr = new XMLHttpRequest();
-
-            // открываем запрос типа GET (мы же получаем данные) на адрес http://107.170.103.201/api/student/get
             xhr.open('GET', 'http://107.170.103.201/api/student/get', true);
 
-            // обработчик события успешного окончания загрузки данных
             xhr.onload = function () {
 
                 students = JSON.parse(xhr.responseText);
@@ -82,13 +75,14 @@
                 }
             };
 
-            // обработчик ошибок
             xhr.onerror = function () {
                 console.log('There was an error!');
             };
 
-            // отправляем запрос
-            xhr.send();
+            var params = {};
+            params.Fields = 'Id, SecondName, FirstName, MiddleName';
+
+            xhr.send(JSON.stringify(params));
         });
         
     </script>

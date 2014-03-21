@@ -67,12 +67,16 @@ app.get('/api/student/get', function (req, res) {
         if (err) console.log('error when connecting to db:', err);
     });
 
+    console.log(req.body.Fields);
+
     connection.query('SELECT * FROM students;', function (err, rows, fields) {
         if (err) throw err;
 
         res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
         res.end(JSON.stringify(rows));
     });
+
+    connection.end();
 });
 
 app.post('/api/student/add', express.bodyParser(), function (req, res) {
