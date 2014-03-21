@@ -9,7 +9,7 @@ app.use(express.bodyParser());
 app.use(express.cookieParser());
 
 app.all('*', function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "http://107.170.103.201/");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     next();
 });
