@@ -17,9 +17,10 @@
                 success: function (res) {
                     console.log('success');
 
-                    /*var table = document.getElementById('mytable');
+                    var students = JSON.parse(res);
+                    var table = document.getElementById('mytable');
 
-                    for (var i = 0; i < res.length; i++) {
+                    for (var i = 0; i < students.length; i++) {
                         
                         var row = table.insertRow(i + 1);
                         var y1 = row.insertCell(0);
@@ -32,8 +33,9 @@
                         var y8 = row.insertCell(7);
 
                         y1.innerHTML = "" + (i + 1);
-                        y2.innerHTML = res[i].SecondName + " " + res[i].FirstName + " " + res[i].MiddleName;
-                    }*/
+                        y2.innerHTML = students[i].SecondName + " " + students[i].FirstName + " " + students[i].MiddleName;
+                        y3.innerHTML = students[i].CardNumber;
+                    }
                 },
                 error: function (jqXHR, textStatus, err) {
                     console.log('text status ' + textStatus + ', err ' + err)
