@@ -67,9 +67,6 @@ app.get('/api/student/get', function (req, res) {
         if (err) console.log('error when connecting to db:', err);
     });
 
-    var preq = JSON.parse(req);
-    console.log(preq.body);
-
     connection.query('SELECT * FROM students;', function (err, rows, fields) {
         if (err) throw err;
 
