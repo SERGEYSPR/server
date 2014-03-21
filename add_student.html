@@ -91,11 +91,11 @@
 
 			xhr.onload = function ()
 			{
-			    if ()
+			    $('#info').text('Ok');
 			};
 
 			xhr.onerror = function () {
-			    console.log('There was an error!');
+			    $('#info').text('Fail');
 			};
 
 			xhr.send(params);
