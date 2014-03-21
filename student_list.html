@@ -7,7 +7,7 @@
 
     <style>
         body {
-            font-family: Arial;
+            font-family: Calibri;
             font-size: 13px;
             font-weight: lighter;
             margin: 0px;
@@ -29,68 +29,91 @@
 
     <script>
 
-        function fillStudentList() {
+        jQuery.support.cors = true;
+        $(document).ready(function () {
+
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+            xhr.open('GET', 'http://107.170.103.201/api/student/get', true);
+
+            xhr.onload = function () {
+                var responseText = xhr.responseText;
+                console.log(responseText);
+                // process the response.
+            };
+
+            xhr.onerror = function () {
+                console.log('There was an error!');
+            };
+
+            xhr.send();
 
             $.ajax({
                 type: 'GET',
-                dataType: "text",
-                contentType: "application/json",
-			    url: 'http://107.170.103.201/api/student/get',
-         		success: function(res) {
-         			console.log('success');
-         			
-         			alert(res);
+                crossDomain: true,
+                async: false,
+                contentType: "text/plain; charset=utf-8",
+                url: 'http://107.170.103.201/api/student/get',
 
-         			for (var i = 0; i < res.length; i++) {
-         			    var div = document.createElement('div');
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Access-Control-Allow-origin', 'http://107.170.103.201/');
+                },
 
-         			    $(div).css({ padding: '4px', borderBottom: '1px solid #ccc'});
+                success: function (res) {
+                    console.log('success');
+
+                    alert(res);
+
+                    for (var i = 0; i < res.length; i++) {
+                        var div = document.createElement('div');
+
+                        $(div).css({ padding: '4px', borderBottom: '1px solid #ccc' });
                         div.id = res[i].Id;
-                    	
-					    var name = document.createElement('span');
-					    div.appendChild(name);
 
-					    $(name).text(res[i].SecondName + ' ' + res[i].FirstName + ' ' + res[i].MiddleName);
-					    $(name).css({ marginRight: '50px' });							
-								
-					    var deleteLabel = document.createElement('span');
-					    deleteLabel.innerHTML = 'Удалить';
-					    deleteLabel.style.color = '#777';
-					    deleteLabel.style.cursor = 'pointer';
-					    deleteLabel.onclick = function () { 
+                        var name = document.createElement('span');
+                        div.appendChild(name);
 
-					        var params = {};
-						    params.Id = deleteLabel.parentNode.id;		
-								
-						    $.ajax({
-							    type: 'POST',
-							    data: params,
-         				        url: 'http://107.170.103.201/api/student/delete',						
-         					    success: function(res) {
-         						    console.log('successfully deleted');
-         					    },
-         					    error: function(jqXHR, textStatus, err){
-               				        console.log('text status ' + textStatus + ', err ' + err)
-           					    }
-						    });
-					    };
-							
-					    div.appendChild(name);
-					    div.appendChild(deleteLabel);
-                    	
-                  	    document.getElementById('studentList').appendChild(div);
+                        $(name).text(res[i].SecondName + ' ' + res[i].FirstName + ' ' + res[i].MiddleName);
+                        $(name).css({ marginRight: '50px' });
+
+                        var deleteLabel = document.createElement('span');
+                        deleteLabel.innerHTML = 'Удалить';
+                        deleteLabel.style.color = '#777';
+                        deleteLabel.style.cursor = 'pointer';
+                        deleteLabel.onclick = function () {
+
+                            var params = {};
+                            params.Id = deleteLabel.parentNode.id;
+
+                            $.ajax({
+                                type: 'POST',
+                                data: params,
+                                url: 'http://107.170.103.201/api/student/delete',
+                                success: function (res) {
+                                    console.log('successfully deleted');
+                                },
+                                error: function (jqXHR, textStatus, err) {
+                                    console.log('text status ' + textStatus + ', err ' + err)
+                                }
+                            });
+                        };
+
+                        div.appendChild(name);
+                        div.appendChild(deleteLabel);
+
+                        document.getElementById('studentList').appendChild(div);
                     }
-         	    },
-         	    error: function(jqXHR, textStatus, err){
-             	    console.log('text status ' + textStatus + ', err ' + err)
-           	    }
-		    });			
-        }
-
+                },
+                error: function (jqXHR, textStatus, err) {
+                    console.log(textStatus + ', err ' + err)
+                }
+            });
+        });
     </script>
 
 </head>
-<body onload="fillStudentList();">
+
+<body>
     <div id="studentList"></div>
 </body>
 </html>
