@@ -87,6 +87,7 @@ app.post('/api/student/add', express.bodyParser(), function (req, res) {
 	if (req.body.SecondName === undefined) { res.end("Second name must be not null"); return; }
 	if (req.body.MiddleName === undefined) { res.end("Middle name must be not null"); return; }*/
    
+    console.log(req.body.FirstName);
 	var query = "insert into students (SecondName, FirstName, MiddleName, Birthday, Country, Region, City, District, Town, Street, House, Flat, Phone) " +
    				"values('" +
                     req.body.FirstName + "', '" +
