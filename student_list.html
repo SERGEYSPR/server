@@ -8,20 +8,9 @@
     <style>
         body {
             font-family: Calibri;
-            font-size: 13px;
-            font-weight: lighter;
+            font-size: 14px;
             margin: 0px;
             padding: 10px;
-        }
-
-        .search_input {
-            background-color: #f6f6f6;
-            border: 1px solid #bbb;
-            box-sizing: border-box;
-            display: block;
-            padding: 7px;
-            outline: none;
-            width: 100%;
         }
     </style>
 
@@ -29,90 +18,55 @@
 
     <script>
 
+        // включаем поддержку междоменных запросов
         jQuery.support.cors = true;
+
+        // на событие полной загрузки страницы вешаем обработчик
         $(document).ready(function () {
 
+            // создаем объект, который может загружать данные с сервера без перезагрузки
             var xhr = new XMLHttpRequest();
+
+            // открываем запрос типа GET (мы же получаем данные) на адрес http://107.170.103.201/api/student/get
             xhr.open('GET', 'http://107.170.103.201/api/student/get', true);
 
+            // обработчик события успешного окончания загрузки данных
             xhr.onload = function () {
-                var responseText = xhr.responseText;
-                console.log(responseText);
-                // process the response.
+
+                var students = JSON.parse(xhr.responseText);
+
+                for (var i = 0; i < students.length; i++)
+                {
+                    var div = document.createElement('div');
+
+                    div.id = students[i].Id;
+                    $(div).css({ padding: '4px', borderBottom: '1px solid #dfdfdf', cursor: 'pointer' });
+                    $(div).text(students[i].Id + '. ' + students[i].SecondName + ' ' + students[i].FirstName + ' ' + students[i].MiddleName);
+
+                    /*$(div).hover(function () {
+                        $('#' + div.id).css("background-color", "yellow");
+                    });*/
+                    
+                    document.getElementById('studentList').appendChild(div);
+                }
             };
 
+            // обработчик ошибок
             xhr.onerror = function () {
                 console.log('There was an error!');
             };
 
+            // отправляем запрос
             xhr.send();
-
-            /*$.ajax({
-                type: 'GET',
-                crossDomain: true,
-                async: false,
-                contentType: "text/plain; charset=utf-8",
-                url: 'http://107.170.103.201/api/student/get',
-
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Access-Control-Allow-origin', 'http://107.170.103.201/');
-                },
-
-                success: function (res) {
-                    console.log('success');
-
-                    alert(res);
-
-                    for (var i = 0; i < res.length; i++) {
-                        var div = document.createElement('div');
-
-                        $(div).css({ padding: '4px', borderBottom: '1px solid #ccc' });
-                        div.id = res[i].Id;
-
-                        var name = document.createElement('span');
-                        div.appendChild(name);
-
-                        $(name).text(res[i].SecondName + ' ' + res[i].FirstName + ' ' + res[i].MiddleName);
-                        $(name).css({ marginRight: '50px' });
-
-                        var deleteLabel = document.createElement('span');
-                        deleteLabel.innerHTML = 'Удалить';
-                        deleteLabel.style.color = '#777';
-                        deleteLabel.style.cursor = 'pointer';
-                        deleteLabel.onclick = function () {
-
-                            var params = {};
-                            params.Id = deleteLabel.parentNode.id;
-
-                            $.ajax({
-                                type: 'POST',
-                                data: params,
-                                url: 'http://107.170.103.201/api/student/delete',
-                                success: function (res) {
-                                    console.log('successfully deleted');
-                                },
-                                error: function (jqXHR, textStatus, err) {
-                                    console.log('text status ' + textStatus + ', err ' + err)
-                                }
-                            });
-                        };
-
-                        div.appendChild(name);
-                        div.appendChild(deleteLabel);
-
-                        document.getElementById('studentList').appendChild(div);
-                    }
-                },
-                error: function (jqXHR, textStatus, err) {
-                    console.log(textStatus + ', err ' + err)
-                }
-            });*/
         });
+
     </script>
 
 </head>
 
-<body>
-    <div id="studentList"></div>
+<body onmou>
+    <div style="border-bottom: 1px solid #ccc; font-size: 26px; margin-bottom: 15px; padding-bottom: 7px;">Список студентов</div>
+    <div id="studentList" style="width: 25%; min-width: 300px;"></div>
+    <div style="width: 75%;"></div>
 </body>
 </html>
