@@ -80,7 +80,7 @@ app.get('/api/students.get', function (req, res) {
             for (var j = 0; j < studentFields.length; j++)
             {
                 if (field === studentFields[j]) {
-                    columns = columns.concat(field);
+                    columns = columns.concat(field, ((i === requiredFields.length - 1) ? "" : ","));
                 }
             }
         }
