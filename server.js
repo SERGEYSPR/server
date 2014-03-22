@@ -71,8 +71,7 @@ app.get('/api/students.get', function (req, res) {
 
     if (params.fields !== undefined && params.fields !== "")
     {
-        console.log(new String(params.fields));
-        var requiredFields = new String(params.fields).toLowerCase().slpit(',');
+        var requiredFields = new String(params.fields).toLowerCase().split(',');
 
         for (var i = 0; i < requiredFields.length; i++)
         {
