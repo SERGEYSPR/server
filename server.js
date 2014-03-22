@@ -78,7 +78,7 @@ app.get('/api/students.get', function (req, res) {
             for (var j = 0; j < studentFields.length; j++)
             {
                 if (requiredFields[i] === studentFields[j]) {
-                    columns.concat(requiredFields[i] + ((i === requiredFields.length - 1) ? '' : ','));
+                    columns.concat(requiredFields[i]);
                 }
             }
         }
