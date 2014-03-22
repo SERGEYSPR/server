@@ -70,7 +70,7 @@ app.get('/api/students.get', function (req, res) {
         if (err) console.log('error when connecting to db:', err);
     });
 
-    connection.query('SELECT FirstName, Birthday FROM students;', function (err, rows, fields) {
+    connection.query('SELECT FirstName, birthday FROM students;', function (err, rows, fields) {
         if (err) throw err;
 
         res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
