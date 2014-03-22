@@ -67,7 +67,9 @@ app.get('/api/students.get', function (req, res) {
 
     var params = url.parse(req.url, true).query;
     
+    // fields parsing
     var columns = "";
+    var fieldRegex = new RegExp('^([a-z_]+)$');
 
     if (params.fields !== undefined && params.fields !== "")
     {
@@ -76,6 +78,8 @@ app.get('/api/students.get', function (req, res) {
         for (var i = 0; i < requiredFields.length; i++)
         {
             var field = requiredFields[i].trim();
+            if (field.match(fieldRegex) === null)
+                continue;
 
             for (var j = 0; j < studentFields.length; j++)
             {
