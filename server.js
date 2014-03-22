@@ -9,6 +9,9 @@ app.use(app.router);
 app.use(express.bodyParser());
 app.use(express.cookieParser());
 
+// Global variables
+var studentFields = [ 'id', 'second_name', 'first_name' ];
+
 app.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -59,6 +62,13 @@ app.get('/api/students.get', function (req, res) {
 
     var params = url.parse(req.url, true).query;
     
+    var columns = '';
+
+    if (params.fields !== undefined && params.fields !== "")
+    {
+
+    }
+
     var connection = mysql.createConnection({
         host: 'localhost',
         database: 'test',
@@ -70,7 +80,7 @@ app.get('/api/students.get', function (req, res) {
         if (err) console.log('error when connecting to db:', err);
     });
 
-    connection.query('SELECT FirstName, birthday FROM students;', function (err, rows, fields) {
+    connection.query('SELECT * FROM students;', function (err, rows, fields) {
         if (err) throw err;
 
         res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
