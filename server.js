@@ -1,6 +1,7 @@
 ﻿var mysql = require('mysql');
 var express = require('express');
 var fs = require('fs');
+var url = require('url');
 
 var app = express();
 
@@ -54,7 +55,12 @@ app.get('/student/add', function (req, res) {
     });
 });
 
-app.get('/api/student/get', express.bodyParser(), function (req, res) {
+app.get('/api/student/get', function (req, res) {
+
+    var params = url.parse(req.url, true).query;
+
+    console.log(params.Id);
+    console.log(params.Name);
 
     var connection = mysql.createConnection({
         host: 'localhost',
@@ -67,7 +73,6 @@ app.get('/api/student/get', express.bodyParser(), function (req, res) {
         if (err) console.log('error when connecting to db:', err);
     });
 
-    console.log(req.body.Fields);
     connection.query('SELECT * FROM students;', function (err, rows, fields) {
         if (err) throw err;
 
