@@ -55,13 +55,10 @@ app.get('/student/add', function (req, res) {
     });
 });
 
-app.get('/api/student/get', function (req, res) {
+app.get('/api/students.get', function (req, res) {
 
     var params = url.parse(req.url, true).query;
-
-    console.log(params.Id);
-    console.log(params.Name);
-
+    
     var connection = mysql.createConnection({
         host: 'localhost',
         database: 'test',
@@ -73,7 +70,7 @@ app.get('/api/student/get', function (req, res) {
         if (err) console.log('error when connecting to db:', err);
     });
 
-    connection.query('SELECT * FROM students;', function (err, rows, fields) {
+    connection.query('SELECT (FirstName, Birthday) FROM students;', function (err, rows, fields) {
         if (err) throw err;
 
         res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
@@ -83,7 +80,7 @@ app.get('/api/student/get', function (req, res) {
     connection.end();
 });
 
-app.post('/api/student/add', express.bodyParser(), function (req, res) {
+app.post('/api/students.add', express.bodyParser(), function (req, res) {
 	
 	var connection = mysql.createConnection({
    	    host: 'localhost',
@@ -133,7 +130,7 @@ app.post('/api/student/add', express.bodyParser(), function (req, res) {
 	connection.end();
 });
 
-app.post('/api/student/delete', express.bodyParser(), function (req, res) {
+app.post('/api/students.delete', express.bodyParser(), function (req, res) {
 	
 	var connection = mysql.createConnection({
    	host: 'localhost',
