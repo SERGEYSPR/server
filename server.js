@@ -67,7 +67,7 @@ app.get('/api/students.get', function (req, res) {
 
     var params = url.parse(req.url, true).query;
     
-    var columns = '';
+    var columns = "";
 
     if (params.fields !== undefined && params.fields !== "")
     {
@@ -75,12 +75,10 @@ app.get('/api/students.get', function (req, res) {
 
         for (var i = 0; i < requiredFields.length; i++)
         {
-            console.log(requiredFields[i]);
             for (var j = 0; j < studentFields.length; j++)
             {
                 if (requiredFields[i] === studentFields[j]) {
-                    console.log('ok');
-                    columns += requiredFields[i] + (i === requiredFields.length - 1) ? '' : ',';
+                    columns.concat(requiredFields[i] + ((i === requiredFields.length - 1) ? '' : ','));
                 }
             }
         }
