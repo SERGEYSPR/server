@@ -83,7 +83,10 @@ app.get('/api/students.get', function (req, res) {
     connection.query('SELECT * FROM students;', function (err, rows, fields) {
         if (err) throw err;
 
-        console.log(fields);
+        for (var i = 0; i < fields.length; i++)
+        {
+            console.log("'" + fields[i].name + "', ");
+        }
 
         res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
         res.end(JSON.stringify(rows));
