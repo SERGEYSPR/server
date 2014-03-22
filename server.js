@@ -75,10 +75,12 @@ app.get('/api/students.get', function (req, res) {
 
         for (var i = 0; i < requiredFields.length; i++)
         {
+            var field = requiredFields[i].trim();
+
             for (var j = 0; j < studentFields.length; j++)
             {
-                if (requiredFields[i] === studentFields[j]) {
-                    columns.concat(requiredFields[i]);
+                if (field === studentFields[j]) {
+                    columns = columns.concat(field);
                 }
             }
         }
