@@ -10,7 +10,12 @@ app.use(express.bodyParser());
 app.use(express.cookieParser());
 
 // Global variables
-var studentFields = [ 'id', 'second_name', 'first_name' ];
+var studentFields = [
+    'id', 'card_number', 'second_name', 'first_name', 'middle_name', 'birthday',
+    'country', 'region', 'district', 'city', 'town', 'street', 'house', 'flat',
+    'document_type', 'document_series', 'document_number', 'document_date', 'document_orden',
+    'faculty', 'year', 'category', 'motion', 'order_date', 'order_number'];
+
 
 app.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -66,8 +71,20 @@ app.get('/api/students.get', function (req, res) {
 
     if (params.fields !== undefined && params.fields !== "")
     {
+        var requiredFields = params.fields.toLowerCase().slpit(',');
 
+        for (var i = 0; i < requiredFields.length; i++)
+        {
+            for (var j = 0; j < studentFields.length; j++)
+            {
+                if (requiredFields[i] === studentFields[j]) {
+                    columns += requiredFields[i] + (i === requiredFields.length - 1) ? '' : ',';
+                }
+            }
+        }
     }
+    
+    console.log(columns);
 
     var connection = mysql.createConnection({
         host: 'localhost',
@@ -82,11 +99,6 @@ app.get('/api/students.get', function (req, res) {
 
     connection.query('SELECT * FROM students;', function (err, rows, fields) {
         if (err) throw err;
-
-        for (var i = 0; i < fields.length; i++)
-        {
-            console.log("'" + fields[i].name + "', ");
-        }
 
         res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
         res.end(JSON.stringify(rows));
