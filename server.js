@@ -80,7 +80,7 @@ app.get('/api/students.get', function (req, res) {
             for (var j = 0; j < studentFields.length; j++)
             {
                 if (field === studentFields[j]) {
-                    columns = columns.concat(field, ((i === requiredFields.length - 1) ? "" : ","));
+                    columns = columns.concat(((i === 0) ? "" : ","), field);
                 }
             }
         }
@@ -99,7 +99,7 @@ app.get('/api/students.get', function (req, res) {
         if (err) console.log('error when connecting to db:', err);
     });
 
-    connection.query('SELECT * FROM students;', function (err, rows, fields) {
+    connection.query('SELECT ' + columns + ' FROM students;', function (err, rows, fields) {
         if (err) throw err;
 
         res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
