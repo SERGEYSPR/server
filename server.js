@@ -54,7 +54,7 @@ app.get('/student/add', function (req, res) {
     });
 });
 
-app.get('/api/student/get', function (req, res) {
+app.get('/api/student/get', express.bodyParser(), function (req, res) {
 
     var connection = mysql.createConnection({
         host: 'localhost',
@@ -67,6 +67,7 @@ app.get('/api/student/get', function (req, res) {
         if (err) console.log('error when connecting to db:', err);
     });
 
+    console.log(req.body.Fields);
     connection.query('SELECT * FROM students;', function (err, rows, fields) {
         if (err) throw err;
 
