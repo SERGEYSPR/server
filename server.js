@@ -149,13 +149,15 @@ app.get('/api/students.get', function (req, res) {
     });
 
     connection.query(query, function (err, rows, fields) {
-        if (err) {
-            console.log(err.message);
-            throw err;
-        }
-
         res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
-        res.end(JSON.stringify(rows));
+
+        if (err) {
+            var errorResponse = { error: { message: err.message } };
+            res.end(JSON.stringify(errorResponse));
+        }
+        else {
+            res.end(JSON.stringify(rows));
+        }
     });
 
     connection.end();
