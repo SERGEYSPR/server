@@ -111,6 +111,8 @@ app.get('/api/students.get', function (req, res) {
 
     query = query.concat(";");
 
+    console.log(query);
+
     var connection = mysql.createConnection({
         host: 'localhost',
         database: 'test',
