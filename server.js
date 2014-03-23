@@ -98,14 +98,20 @@ app.get('/api/students.get', function (req, res) {
         var requiredUids = new String(params.uids).split(',');
         var selectedUids = "";
 
-        if (requiredUids.length > 0) {
+        console.log(params.uids);
+        console.log(requiredUids);
+
+        if (requiredUids.length > 0)
+        {
             for (var i = 0; i < requiredUids.length; i++) {
                 var uid = requiredUids[i].trim();
-                if (uid.match(uidRegex) !== null)
+                if (uid.match(uidRegex) !== null) {
                     selectedUids = selectedUids.concat(((i === 0) ? "" : ","), uid);
+                    console.log(uid);
+                }
             }
 
-            query = query.concat("WHERE id IN (" + selectedUids + ")");
+            query = query.concat(" WHERE id IN (" + selectedUids + ")");
         }
     }
 
