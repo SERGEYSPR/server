@@ -55,6 +55,8 @@ app.get('/statement', function (req, res) {
     });
 });
 
+// API
+
 app.get('/api/students.get', function (req, res) {
 
     var params = url.parse(req.url, true).query;
