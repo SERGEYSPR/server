@@ -67,7 +67,7 @@ app.get('/api/students.get', function (req, res) {
 
     var params = url.parse(req.url, true).query;
 
-    // fields parsing
+    /*// fields parsing
     var columns = "";
     if (params.fields !== undefined && params.fields !== "")
     {
@@ -115,7 +115,23 @@ app.get('/api/students.get', function (req, res) {
         }
     }
 
-    query = query.concat(";");
+    query = query.concat(";");*/
+    
+    // fields
+    var columns = "";
+    if (params.fields !== undefined && params.fields !== "")
+        columns = params.fields;
+    else
+        columns = "*";
+
+    // uids
+    if (params.uids !== undefined && params.uids !== "")
+    {
+        var requiredUids = new String(params.uids).split(',');
+        if (requiredUids.length > 0) {
+            query = query.concat(" WHERE id IN (" + params.uids + ");");
+        }
+    }
 
     console.log(query);
 
