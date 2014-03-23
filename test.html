@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <script>
+
+        function start()
+        {
+            var str = "id, first_name, second_name";
+            var cols = "";
+            
+            var fields = str.toLowerCase().split(',');
+
+            for (var i = 0; i < fields.length; i++) {
+                cols = cols.concat(fields[i].trim());
+            }
+
+            console.log(cols);
+        }
+
+    </script>
+</head>
+<body onload="start();">
+
+</body>
+</html>

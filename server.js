@@ -71,23 +71,23 @@ app.get('/api/students.get', function (req, res) {
     var columns = "";
     var fieldRegex = new RegExp('^([a-z_]+)$');
 
-    if (params.fields !== undefined && params.fields !== "")
-    {
+    if (params.fields !== undefined && params.fields !== "") {
         var requiredFields = new String(params.fields).toLowerCase().split(',');
 
-        for (var i = 0; i < requiredFields.length; i++)
-        {
-            var field = requiredFields[i].trim();
-            if (field.match(fieldRegex) === null)
+        for (var i = 0; i < requiredFields.length; i++) {   // cycle through all fields
+            var field = requiredFields[i].trim();           // trim spases 
+            if (field.match(fieldRegex) === null)           // check for correct field name
                 continue;
 
-            for (var j = 0; j < studentFields.length; j++)
-            {
-                if (field === studentFields[j]) {
-                    columns = columns.concat(((i === 0) ? "" : ","), field);
+            for (var j = 0; j < studentFields.length; j++) {    // search through all avaliable fields
+                if (field === studentFields[j]) {               // if we find required field in the list of existing fields
+                    columns = columns.concat(((i === 0) ? "" : ","), field);    // then add this fields to the columns string
                 }
             }
         }
+    }
+    else {
+        columns = "*";  // if parameter 'fields' not exist then get all columns from database
     }
     
     console.log(columns);
