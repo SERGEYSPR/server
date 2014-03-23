@@ -210,7 +210,17 @@ app.get('/api/classrooms.get', function (req, res) {
 
 // HELP
 
-app.get('help/students.get', function (req, res) {
+app.get('/help', function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+
+    fs.readFile(__dirname + '/help/help.html', function (err, data) {
+        if (err) { res.end('error'); return; }
+
+        res.end(data.toString('utf-8'));
+    });
+});
+
+app.get('/help/students.get', function (req, res) {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
 
     fs.readFile(__dirname + '/help/students.get.html', function (err, data) {
