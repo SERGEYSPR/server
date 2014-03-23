@@ -33,10 +33,10 @@
                         var y8 = row.insertCell(7);
 
                         y1.innerHTML = "" + (i + 1);
-                        y2.innerHTML = students[i].SecondName + " " + students[i].FirstName + " " + students[i].MiddleName;
+                        y2.innerHTML = students[i].second_name + " " + students[i].first_name + " " + students[i].middle_name;
                         y2.style.padding = '3px';
 
-                        y3.innerHTML = students[i].CardNumber;
+                        y3.innerHTML = students[i].card_number;
                     }
                 },
                 error: function (jqXHR, textStatus, err) {
