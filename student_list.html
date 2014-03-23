@@ -36,38 +36,38 @@
 
                     div.id = new Number(i);
                     $(div).css({ padding: '4px', borderBottom: '1px solid #dfdfdf', cursor: 'pointer' });
-                    $(div).text(students[i].Id + '. ' + students[i].SecondName + ' ' + students[i].FirstName + ' ' + students[i].MiddleName);
+                    $(div).text(students[i].id + '. ' + students[i].second_name + ' ' + students[i].first_name + ' ' + students[i].middle_name);
                     $(div).click(function () {
                         
                         var index = new Number(this.id);
 
                         $('#name').text(
-                            students[index].SecondName + ' ' + 
-                            students[index].FirstName + ' ' + 
-                            students[index].MiddleName);
+                            students[index].second_name + ' ' +
+                            students[index].first_name + ' ' +
+                            students[index].middle_name);
 
                         if (students[index].City !== "")
                         {
                             $('#address').text(
                                 'Адрес: ' +
-                                students[index].Region + ', ' +
-                                students[index].City + ', ' +
-                                students[index].Street + ', дом ' +
-                                students[index].House + ', кв. ' +
-                                students[index].Flat);
+                                students[index].region + ', ' +
+                                students[index].city + ', ' +
+                                students[index].street + ', дом ' +
+                                students[index].house + ', кв. ' +
+                                students[index].flat);
                         }
                         else
                         {
                             $('#address').text(
                                 'Адрес: ' +
-                                students[index].Region + ', ' +
-                                students[index].District + ' район, c. ' +
-                                students[index].Town + ', ' +
-                                students[index].Street + ', дом ' +
-                                students[index].House);
+                                students[index].region + ', ' +
+                                students[index].district + ' район, c. ' +
+                                students[index].town + ', ' +
+                                students[index].street + ', дом ' +
+                                students[index].house);
                         }
 
-                        $('#birthday').text('День рождения: ' + students[index].Birthday);
+                        $('#birthday').text('День рождения: ' + students[index].birthday);
                         $('#phone').text('Телефон: 8 (123) 456-78-90');
                     });
 
@@ -79,10 +79,7 @@
                 console.log('There was an error!');
             };
 
-            var params = {};
-            params.Fields = 'Id, SecondName, FirstName, MiddleName';
-
-            xhr.send(params);
+            xhr.send();
         });
         
     </script>
