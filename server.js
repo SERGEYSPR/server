@@ -230,6 +230,86 @@ app.get('/help/students.get', function (req, res) {
     });
 });
 
+app.get('/help/students.add', function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+
+    fs.readFile(__dirname + '/help/students.add.html', function (err, data) {
+        if (err) { res.end('error'); return; }
+
+        res.end(data.toString('utf-8'));
+    });
+});
+
+app.get('/help/students.delete', function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+
+    fs.readFile(__dirname + '/help/students.delete.html', function (err, data) {
+        if (err) { res.end('error'); return; }
+
+        res.end(data.toString('utf-8'));
+    });
+});
+
+app.get('/help/lecturers.get', function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+
+    fs.readFile(__dirname + '/help/lecturers.get.html', function (err, data) {
+        if (err) { res.end('error'); return; }
+
+        res.end(data.toString('utf-8'));
+    });
+});
+
+app.get('/help/lecturers.add', function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+
+    fs.readFile(__dirname + '/help/lecturers.add.html', function (err, data) {
+        if (err) { res.end('error'); return; }
+
+        res.end(data.toString('utf-8'));
+    });
+});
+
+app.get('/help/lecturers.delete', function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+
+    fs.readFile(__dirname + '/help/lecturers.delete.html', function (err, data) {
+        if (err) { res.end('error'); return; }
+
+        res.end(data.toString('utf-8'));
+    });
+});
+
+app.get('/help/classrooms.get', function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+
+    fs.readFile(__dirname + '/help/classrooms.get.html', function (err, data) {
+        if (err) { res.end('error'); return; }
+
+        res.end(data.toString('utf-8'));
+    });
+});
+
+app.get('/help/classrooms.add', function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+
+    fs.readFile(__dirname + '/help/classrooms.add.html', function (err, data) {
+        if (err) { res.end('error'); return; }
+
+        res.end(data.toString('utf-8'));
+    });
+});
+
+app.get('/help/classrooms.delete', function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+
+    fs.readFile(__dirname + '/help/classrooms.delete.html', function (err, data) {
+        if (err) { res.end('error'); return; }
+
+        res.end(data.toString('utf-8'));
+    });
+});
+
 
 app.listen(80);
 
