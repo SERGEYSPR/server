@@ -94,7 +94,7 @@ app.get('/api/students.get', function (req, res) {
     // uids parsing
     if (params.uids !== undefined && params.uids !== "")
     {
-        var uidRegex = new RegExp("^(\d+)$");
+        var uidRegex = new RegExp("^([0-9]+)$");
         var requiredUids = new String(params.uids).split(',');
         var selectedUids = "";
 
