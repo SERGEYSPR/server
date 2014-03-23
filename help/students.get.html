@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Метод students.get</title>
+
+    <style>
+        body {
+            font-family: Consolas;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div>Тип метода: <b>GET</b></div>
+    <div>Адрес (host): <b>http://107.170.103.201/api/students.get</b></div>
+    <div style="margin-top: 10px;">Параметры:</div>
+    <div style="margin: 5px 0px 0px 10px;">
+        <div style="display: inline-block; width: 100px; vertical-align: top;"><b>uids</b></div>
+        <div style="display: inline-block; width: 500px;">Список идентификаторов студентов через запятую (Пример: 169,170,250). Этот параметр может быть пропущен, тогда сервер вернет весь список студентов</div>
+    </div>
+    <div style="margin: 5px 0px 0px 10px;">
+        <div style="display: inline-block; width: 100px; vertical-align: top;"><b>fields</b></div>
+        <div style="display: inline-block; width: 500px;">Список названий полей через запятую. Этот параметр может быть пропущен, тогда сервер вернет полную информацию о студенте(ах)</div>
+    </div>
+
+    <div style="margin-top: 20px;"><b>Пример запроса:</b></div>
+    <div>http://107.170.103.201/api/students.get?uids=166,169,170&fields=first_name,birthday</div>
+
+    <div style="margin-top: 20px;"><b>Пример ответа на запрос выше:</b></div>
+    <div style="width: 700px;">[{"first_name":"Татьяна","birthday":"24.01.1993"},{"first_name":"Александр","birthday":"08.10.1992"},{"first_name":"Александр","birthday":"13.07.1994"}]</div>
+    
+    <div style="margin-top: 20px;"><b>В случае ошибки ответ будет следующим:</b></div>
+    <div>{"error":{"message":"сообщение ошибки"}}</div>
+</body>
+</html>

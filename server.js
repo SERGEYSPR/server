@@ -208,6 +208,19 @@ app.get('/api/classrooms.get', function (req, res) {
     connection.end();
 });
 
+// HELP
+
+app.get('help/students.get', function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+
+    fs.readFile(__dirname + '/help/students.get.html', function (err, data) {
+        if (err) { res.end('error'); return; }
+
+        res.end(data.toString('utf-8'));
+    });
+});
+
+
 app.listen(80);
 
 console.log('Server running');
