@@ -124,6 +124,8 @@ app.get('/api/students.get', function (req, res) {
     else
         columns = "*";
 
+    var query = "SELECT " + columns + " FROM students";
+
     // uids
     if (params.uids !== undefined && params.uids !== "")
     {
