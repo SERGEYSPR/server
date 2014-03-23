@@ -66,12 +66,12 @@ app.get('/student/add', function (req, res) {
 app.get('/api/students.get', function (req, res) {
 
     var params = url.parse(req.url, true).query;
-    
+
     // fields parsing
     var columns = "";
-    var fieldRegex = new RegExp('^([a-z_]+)$');
-
-    if (params.fields !== undefined && params.fields !== "") {
+    if (params.fields !== undefined && params.fields !== "")
+    {
+        var fieldRegex = new RegExp('^([a-z_]+)$');
         var requiredFields = new String(params.fields).toLowerCase().split(',');
 
         for (var i = 0; i < requiredFields.length; i++) {   // cycle through all fields
@@ -80,17 +80,36 @@ app.get('/api/students.get', function (req, res) {
                 continue;
 
             for (var j = 0; j < studentFields.length; j++) {    // search through all avaliable fields
-                if (field === studentFields[j]) {               // if we find required field in the list of existing fields
+                if (field === studentFields[j])                 // if we find required field in the list of existing fields
                     columns = columns.concat(((i === 0) ? "" : ","), field);    // then add this fields to the columns string
-                }
             }
         }
     }
     else {
         columns = "*";  // if parameter 'fields' not exist then get all columns from database
     }
+
+    var query = "SELECT " + columns + " FROM students";
     
-    console.log(columns);
+    // uids parsing
+    if (params.uids !== undefined && params.uids !== "")
+    {
+        var uidRegex = new RegExp("^(\d+)$");
+        var requiredUids = new String(params.uids).split(',');
+        var selectedUids = "";
+
+        if (requiredUids.length > 0) {
+            for (var i = 0; i < requiredUids.length; i++) {
+                var uid = requiredUids[i].trim();
+                if (uid.match(uidRegex) !== null)
+                    selectedUids = selectedUids.concat(((i === 0) ? "" : ","), uid);
+            }
+
+            query = query.concat("WHERE id IN (" + selectedUids + ")");
+        }
+    }
+
+    query = query.concat(";");
 
     var connection = mysql.createConnection({
         host: 'localhost',
