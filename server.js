@@ -157,7 +157,7 @@ app.post('/api/students.add', express.bodyParser(), function (req, res) {
 	connection.end();
 });
 
-app.post('/api/students.delete', function (req, res) {
+app.get('/api/students.delete', function (req, res) {
 
     var connection = mysql.createConnection({
    	    host: 'localhost',
@@ -165,7 +165,7 @@ app.post('/api/students.delete', function (req, res) {
         user: 'root',
         password: 'softingen205'
     });
-   
+    
     res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
 
     connection.connect(function (err) {
