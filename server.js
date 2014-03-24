@@ -70,12 +70,12 @@ app.get('/api/students.get', function (req, res) {
 
     var query = "SELECT " + columns + " FROM students";
 
-    // uids
-    if (params.uids !== undefined && params.uids !== "")
+    // ids
+    if (params.ids !== undefined && params.ids !== "")
     {
-        var requiredUids = new String(params.uids).split(',');
-        if (requiredUids.length > 0) {
-            query = query.concat(" WHERE id IN (" + params.uids + ");");
+        var requiredIds = new String(params.ids).split(',');
+        if (requiredIds.length > 0) {
+            query = query.concat(" WHERE id IN (" + params.ids + ");");
         }
     }
 
@@ -157,29 +157,51 @@ app.post('/api/students.add', express.bodyParser(), function (req, res) {
 	connection.end();
 });
 
-app.post('/api/students.delete', express.bodyParser(), function (req, res) {
-	
-	var connection = mysql.createConnection({
-   	host: 'localhost',
-      database: 'test',
-      user: 'root',
-      password: 'softingen205'
-   });
-   
-   connection.connect(function (err) {
-   	if (err) console.log('error when connecting to db:', err);
-   });
-   
-	res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });    
+app.post('/api/students.delete', function (req, res) {
 
-	if (req.body.Id === undefined) { res.end("Id of removing student must be not null"); return; }
+    var connection = mysql.createConnection({
+   	    host: 'localhost',
+        database: 'test',
+        user: 'root',
+        password: 'softingen205'
+    });
    
-   var query = "delete from students where Id=" + req.body.Id + ";";
-   console.log(req.body.Id);
-   connection.query(query, function (err, rows, fields) {
-   	if (err) res.end("" + err);
-      res.end("OK");
-   });
+    res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+
+    connection.connect(function (err) {
+        if (err) {
+            var response = { error: { message: err.message } };
+            res.end(JSON.stringify(response));
+        }
+    });
+    
+    var params = url.parse(req.url, true).query;
+
+    if (params.id === undefined || params.id === '') {
+        var response = { error: { message: 'Bad request' } };
+        res.end(JSON.stringify(response));
+        return;
+    }
+
+    if (new String(params.id).match(new RegExp("^([0-9]+)$")) === null) {
+        var response = { error: { message: 'Bad request' } };
+        res.end(JSON.stringify(response));
+        return;
+    }
+
+    var query = "DELETE FROM students WHERE id=" + params.id + ";";
+
+    console.log(query);
+    connection.query(query, function (err, rows, fields) {
+        if (err || rows.affectedRows === 0) {
+            var response = { status: 'error', message: 'Id ' + params.id + 'is not exist' };
+            res.end(JSON.stringify(response));
+        }
+        else {
+            var response = { status: 'success' };
+            res.end(JSON.stringify(response));
+        }
+    });
 });
 
 app.get('/api/classrooms.get', function (req, res) {

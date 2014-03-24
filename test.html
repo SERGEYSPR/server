@@ -9,13 +9,19 @@
 
         function start()
         {
-            var str = "id, first_name, second_name";
+            var str = "169, 198, 78";
             var cols = "";
+            var uidRegex = new RegExp("^([0-9]+)$");
             
             var fields = str.toLowerCase().split(',');
 
-            for (var i = 0; i < fields.length; i++) {
-                cols = cols.concat(fields[i].trim());
+            for (var i = 0; i < fields.length; i++)
+            {
+                var uid = fields[i].trim();
+                console.log(uid);
+
+                if (uid.match(uidRegex) !== null)
+                    cols = cols.concat(uid);
             }
 
             console.log(cols);

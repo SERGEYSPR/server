@@ -17,7 +17,7 @@
     <div>Адрес (host): <b>http://107.170.103.201/api/students.get</b></div>
     <div style="margin-top: 10px;">Параметры:</div>
     <div style="margin: 5px 0px 0px 10px;">
-        <div style="display: inline-block; width: 100px; vertical-align: top;"><b>uids</b></div>
+        <div style="display: inline-block; width: 100px; vertical-align: top;"><b>ids</b></div>
         <div style="display: inline-block; width: 500px;">Список идентификаторов студентов через запятую (Пример: 169,170,250). Этот параметр может быть пропущен, тогда сервер вернет весь список студентов</div>
     </div>
     <div style="margin: 5px 0px 0px 10px;">
@@ -26,7 +26,7 @@
     </div>
 
     <div style="margin-top: 20px;"><b>Пример запроса:</b></div>
-    <div>http://107.170.103.201/api/students.get?uids=166,169,170&fields=first_name,birthday</div>
+    <div>http://107.170.103.201/api/students.get?ids=166,169,170&fields=first_name,birthday</div>
 
     <div style="margin-top: 20px;"><b>Пример ответа на запрос выше:</b></div>
     <div style="width: 700px;">[{"first_name":"Татьяна","birthday":"24.01.1993"},{"first_name":"Александр","birthday":"08.10.1992"},{"first_name":"Александр","birthday":"13.07.1994"}]</div>
