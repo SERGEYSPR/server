@@ -128,10 +128,10 @@ app.get('/api/students.add', function (req, res) {
     
     var params = url.parse(req.url, true).query;
 
-    if (params.card_number === undefined && params.card_number !== '' ||
-        params.first_name === undefined && params.first_name !== '' ||
-        params.second_name === undefined && params.second_name !== '' ||
-        params.middle_name === undefined && params.middle_name !== '')
+    if (params.card_number === undefined || params.card_number === '' ||
+        params.first_name === undefined  || params.first_name === '' ||
+        params.second_name === undefined || params.second_name === '' ||
+        params.middle_name === undefined || params.middle_name === '')
     {
         var response = { status: 'error', message: 'Some of the required fields are not filled.' };
         res.end(JSON.stringify(response));
