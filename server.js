@@ -116,15 +116,55 @@ app.post('/api/students.add', express.bodyParser(), function (req, res) {
         password: 'softingen205'
     });
    
+	res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+
     connection.connect(function (err) {
-        if (err) console.log('error when connecting to db:', err);
+        if (err) {
+            var response = { status: 'error', message: err.message };
+            res.end(JSON.stringify(response));
+            return;
+        }
     });
-   
-	/*if (req.body.FirstName === undefined) { res.end("First name must be not null"); return; }
-	if (req.body.SecondName === undefined) { res.end("Second name must be not null"); return; }
-	if (req.body.MiddleName === undefined) { res.end("Middle name must be not null"); return; }*/
-   
-    console.log(req.body.FirstName);
+    
+    var params = url.parse(req.url, true).query;
+
+    if (params.card_number === undefined && params.card_number !== '' ||
+        params.first_name === undefined && params.first_name !== '' ||
+        params.second_name === undefined && params.second_name !== '' ||
+        params.middle_name === undefined && params.middle_name !== '')
+    {
+        var response = { status: 'error', message: 'Some of the required fields are not filled.' };
+        res.end(JSON.stringify(response));
+        return;
+    }
+
+    var columns = "";
+    var values = "";
+
+    // Card number
+    if (params.card_number !== undefined && params.card_number !== '') {
+        columns = columns.concat('card_number');
+        values = values.concat(params.card_number + ',');
+    }
+
+    // Second name
+    if (params.second_name !== undefined && params.second_name !== '') {
+        columns = columns.concat(',second_name');
+        values = values.concat(params.second_name + ',');
+    }
+
+    // First name
+    if (params.first_name !== undefined && params.first_name !== '') {
+        columns = columns.concat(',first_name');
+        values = values.concat(params.first_name + ',');
+    }
+
+    // Middle name
+    if (params.middle_name !== undefined && params.middle_name !== '') {
+        columns = columns.concat(',middle_name');
+        values = values.concat(params.middle_name + ',');
+    }
+
 	var query = "insert into students (SecondName, FirstName, MiddleName, Birthday, Country, Region, City, District, Town, Street, House, Flat, Phone) " +
    				"values('" +
                     req.body.FirstName + "', '" +
@@ -170,21 +210,22 @@ app.get('/api/students.delete', function (req, res) {
 
     connection.connect(function (err) {
         if (err) {
-            var response = { error: { message: err.message } };
+            var response = { status:'error', message: err.message };
             res.end(JSON.stringify(response));
+            return;
         }
     });
     
     var params = url.parse(req.url, true).query;
 
     if (params.id === undefined || params.id === '') {
-        var response = { error: { message: 'Bad request' } };
+        var response = { status: 'error', message: err.message };
         res.end(JSON.stringify(response));
         return;
     }
 
     if (new String(params.id).match(new RegExp("^([0-9]+)$")) === null) {
-        var response = { error: { message: 'Bad request' } };
+        var response = { status: 'error', message: err.message };
         res.end(JSON.stringify(response));
         return;
     }
@@ -194,7 +235,7 @@ app.get('/api/students.delete', function (req, res) {
     console.log(query);
     connection.query(query, function (err, rows, fields) {
         if (err || rows.affectedRows === 0) {
-            var response = { status: 'error', message: 'Id ' + params.id + 'is not exist' };
+            var response = { status: 'error', message: 'Id ' + params.id + ' is not exist' };
             res.end(JSON.stringify(response));
         }
         else {
