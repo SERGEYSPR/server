@@ -107,7 +107,7 @@ app.get('/api/students.get', function (req, res) {
     connection.end();
 });
 
-app.post('/api/students.add', express.bodyParser(), function (req, res) {
+app.get('/api/students.add', function (req, res) {
 	
 	var connection = mysql.createConnection({
    	    host: 'localhost',
