@@ -165,6 +165,9 @@ app.get('/api/students.add', function (req, res) {
         values = values.concat(params.middle_name + ',');
     }
 
+    res.end('(' + columns + ') (' + values + ')');
+
+    /*
 	var query = "insert into students (SecondName, FirstName, MiddleName, Birthday, Country, Region, City, District, Town, Street, House, Flat, Phone) " +
    				"values('" +
                     req.body.FirstName + "', '" +
@@ -194,7 +197,7 @@ app.get('/api/students.add', function (req, res) {
         }
 	});
 
-	connection.end();
+	connection.end();*/
 });
 
 app.get('/api/students.delete', function (req, res) {
