@@ -13,8 +13,21 @@
     </style>
 </head>
 <body>
-    <div>Тип метода: <b>POST</b></div>
+    <div>Тип метода: <b>GET</b></div>
     <div>Адрес (host): <b>http://107.170.103.201/api/students.delete</b></div>
-    <div style="margin-top: 10px;">Метод пока не написан</div>
+    <div style="margin-top: 10px;">Параметры:</div>
+    <div style="margin: 5px 0px 0px 10px;">
+        <div style="display: inline-block; width: 100px; vertical-align: top;"><b>id</b></div>
+        <div style="display: inline-block; width: 500px;">Идентификатор удаляемого из базы студента. Это обязательный параметр.</div>
+    </div>
+    
+    <div style="margin-top: 20px;"><b>Пример запроса:</b></div>
+    <div>http://107.170.103.201/api/students.delete?id=458</div>
+
+    <div style="margin-top: 20px;"><b>В случае успеха ответ будет следующим:</b></div>
+    <div style="width: 700px;">{"status":"success"}</div>
+
+    <div style="margin-top: 20px;"><b>В случае ошибки (не указан параметр id или указан несуществующий идентификатор):</b></div>
+    <div>{"status":"error","message":"сообщение ошибки"}</div>
 </body>
 </html>
