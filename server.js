@@ -115,7 +115,7 @@ app.get('/api/students.add', function (req, res) {
         user: 'root',
         password: 'softingen205'
     });
-   
+    
 	res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
 
     connection.connect(function (err) {
@@ -142,28 +142,20 @@ app.get('/api/students.add', function (req, res) {
     var values = "";
 
     // Card number
-    if (params.card_number !== undefined && params.card_number !== '') {
-        columns = columns.concat('card_number');
-        values = values.concat(params.card_number + ',');
-    }
+    columns = columns.concat('card_number');
+    values = values.concat(params.card_number);
 
     // Second name
-    if (params.second_name !== undefined && params.second_name !== '') {
-        columns = columns.concat(',second_name');
-        values = values.concat(params.second_name + ',');
-    }
+    columns = columns.concat(',second_name');
+    values = values.concat(',' + params.second_name);
 
     // First name
-    if (params.first_name !== undefined && params.first_name !== '') {
-        columns = columns.concat(',first_name');
-        values = values.concat(params.first_name + ',');
-    }
+    columns = columns.concat(',first_name');
+    values = values.concat(',' + params.first_name);
 
     // Middle name
-    if (params.middle_name !== undefined && params.middle_name !== '') {
-        columns = columns.concat(',middle_name');
-        values = values.concat(params.middle_name + ',');
-    }
+    columns = columns.concat(',middle_name');
+    values = values.concat(',' + params.middle_name);
 
     res.end('(' + columns + ') (' + values + ')');
 
@@ -274,6 +266,58 @@ app.get('/api/classrooms.get', function (req, res) {
     });
 
     connection.end();
+});
+
+app.get('/api/classrooms.add', function (req, res) {
+
+    var connection = mysql.createConnection({
+        host: 'localhost',
+        database: 'test',
+        user: 'root',
+        password: 'softingen205'
+    });
+
+    res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+
+    connection.connect(function (err) {
+        if (err) {
+            var response = { status: 'error', message: err.message };
+            res.end(JSON.stringify(response));
+            return;
+        }
+    });
+
+    var params = url.parse(req.url, true).query;
+
+    if (params.id === undefined || params.id === '' ||
+        params.faculty === undefined || params.faculty === '' ||
+        params.bulding_number === undefined || params.bulding_number === '' ||
+        params.classroom_number === undefined || params.classroom_number === '' ||
+        params.type_of_classes === undefined || params.type_of_classes === '' ||
+        params.seats_number === undefined || params.seats_number === '' ||
+        params.has_multimedia_set === undefined || params.has_multimedia_set === '' ||
+        params.has_board === undefined || params.has_board === '')
+    {
+        var response = { status: 'error', message: 'Some of the required fields are not filled.' };
+        res.end(JSON.stringify(response));
+        return;
+    }
+
+    res.end(JSON.stringify(params));
+
+    /*connection.query('SELECT * FROM classrooms;', function (err, rows, fields) {
+        res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+
+        if (err) {
+            var errorResponse = { error: { message: err.message } };
+            res.end(JSON.stringify(errorResponse));
+        }
+        else {
+            res.end(JSON.stringify(rows));
+        }
+    });
+
+    connection.end();*/
 });
 
 // HELP
