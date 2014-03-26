@@ -288,22 +288,37 @@ app.get('/api/classrooms.add', function (req, res) {
     });
 
     var params = url.parse(req.url, true).query;
-
-    res.write(JSON.stringify(params));
-
-    if (params.faculty === undefined || params.faculty === '' ||
-        params.bulding_number === undefined || params.bulding_number === '' ||
-        params.classroom_number === undefined || params.classroom_number === '' ||
-        params.type_of_classes === undefined || params.type_of_classes === '' ||
-        params.seats_number === undefined || params.seats_number === '' ||
-        params.has_multimedia_set === undefined || params.has_multimedia_set === '' ||
-        params.has_board === undefined || params.has_board === '')
-    {
-        var response = { status: 'error', message: 'Some of the required fields are not filled.' };
-        res.end(JSON.stringify(response));
+    
+    if (params.faculty === undefined || params.faculty === '') {
+        sendError(res, 403, "'faculty' fuild is not set");
         return;
     }
 
+    if (params.building_number === undefined || params.building_number === '') {
+        sendError(res, 403, "'building_number' fuild is not set");
+        return;
+    }
+
+    if (params.classroom_number === undefined || params.classroom_number === '') {
+        sendError(res, 403, "'classroom_number' fuild is not set");
+        return;
+    }
+
+    if (params.type_of_classes === undefined || params.type_of_classes === '') {
+        sendError(res, 403, "'type_of_classes' fuild is not set");
+        return;
+    }
+
+    if (params.has_multimedia_set === undefined || params.has_multimedia_set === '') {
+        sendError(res, 403, "'has_multimedia_set' fuild is not set");
+        return;
+    }
+
+    if (params.has_board === undefined || params.has_board === '') {
+        sendError(res, 403, "'has_board' fuild is not set");
+        return;
+    }
+    
     res.end(JSON.stringify(params));
 
     /*connection.query('SELECT * FROM classrooms;', function (err, rows, fields) {
@@ -427,3 +442,8 @@ app.get('/help/classrooms.delete', function (req, res) {
 app.listen(80);
 
 console.log('Server running');
+
+function sendError(res, errorCode, errorMessage) {
+    res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+    res.end(JSON.stringify({ status: 'error', code: errorCode, message: errorMessage }));
+}
