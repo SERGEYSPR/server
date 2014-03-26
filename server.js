@@ -277,12 +277,9 @@ app.get('/api/classrooms.add', function (req, res) {
         password: 'softingen205'
     });
 
-    res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
-
     connection.connect(function (err) {
         if (err) {
-            var response = { status: 'error', message: err.message };
-            res.end(JSON.stringify(response));
+            sendError(res, 403, err.message);
             return;
         }
     });
@@ -319,9 +316,18 @@ app.get('/api/classrooms.add', function (req, res) {
         return;
     }
     
-    res.end(JSON.stringify(params));
+    var query = "INSERT INTO classrooms (faculty, building_number, classroom_number, type_of_classes, has_multimedia_set, has_board) " +
+                "VALUES ("
+                params.faculty + ", " +
+                params.building_number + ", " +
+                params.classroom_number + ", " +
+                params.type_of_classes + ", " +
+                params.has_multimedia_set + ", " +
+                params.has_board + ");";
 
-    /*connection.query('SELECT * FROM classrooms;', function (err, rows, fields) {
+    console.log(query);
+
+    connection.query(query, function (err, rows, fields) {
         res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
 
         if (err) {
@@ -333,7 +339,7 @@ app.get('/api/classrooms.add', function (req, res) {
         }
     });
 
-    connection.end();*/
+    connection.end();
 });
 
 // HELP
