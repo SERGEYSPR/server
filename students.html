@@ -10,7 +10,24 @@
             font-family: Calibri;
             font-size: 14px;
             margin: 0px;
-            padding: 10px;
+        }
+
+        .search {
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            padding: 6px 10px;
+            outline: none;
+            width: 100%;
+        }
+
+        .list_item {
+            padding: 4px 10px; 
+            cursor: pointer;
+        }
+
+        .list_item:hover {
+            background-color: #eee;
         }
     </style>
 
@@ -35,7 +52,7 @@
                     var div = document.createElement('div');
 
                     div.id = new Number(i);
-                    $(div).css({ padding: '4px', borderBottom: '1px solid #dfdfdf', cursor: 'pointer' });
+                    $(div).addClass('list_item');
                     $(div).text(students[i].id + '. ' + students[i].second_name + ' ' + students[i].first_name + ' ' + students[i].middle_name);
                     $(div).click(function () {
                         
@@ -81,18 +98,40 @@
 
             xhr.send();
         });
+
+        function search() {
+            var query = $('#search_field').val().trim().toLowerCase();
+
+            $('#studentList').children('div').each(function () {
+                if ($(this).text().toLowerCase().indexOf(query) === -1) {
+                    $(this).css({ display: 'none'});
+                }
+                else {
+                    $(this).css({ display: 'block' });
+                }
+            });
+        }
         
     </script>
 
 </head>
 
 <body>
-    <div id="studentList" style="display: inline-block; width: 25%; min-width: 300px;"></div>
-    <div style="display: inline-block; padding-left: 20px; vertical-align: top; width: 65%;">
-        <div id="name" style="text-shadow: 0px 0px 1px #444; font-size: 32px;"></div>
-        <div id="address" style="padding: 2px 0px"></div>
-        <div id="birthday" style="padding: 2px 0px"></div>
-        <div id="phone" style="padding: 2px 0px"></div>
-    </div>
+    <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+        <tr>
+            <td width="300px" style="padding: 10px; vertical-align: top;">
+                <div><input id="search_field" class="search" type="text" placeholder="Поиск..." oninput="search();" /></div>
+                <div id="help"></div>
+                <div id="studentList"></div>
+            </td>
+
+            <td style="padding: 10px; vertical-align: top; ">
+                <div id="name" style="text-shadow: 0px 0px 1px #999; font-size: 32px;"></div>
+                <div id="address" style="padding: 2px 0px"></div>
+                <div id="birthday" style="padding: 2px 0px"></div>
+                <div id="phone" style="padding: 2px 0px"></div>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
