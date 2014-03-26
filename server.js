@@ -317,8 +317,8 @@ app.get('/api/classrooms.add', function (req, res) {
     }
     
     var query = "INSERT INTO classrooms (faculty, building_number, classroom_number, type_of_classes, has_multimedia_set, has_board) " +
-                "VALUES (" + 
-                params.faculty + ", " +
+                "VALUES ('" + 
+                params.faculty + "', " +
                 params.building_number + ", " +
                 params.classroom_number + ", " +
                 params.type_of_classes + ", " +
