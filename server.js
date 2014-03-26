@@ -289,8 +289,9 @@ app.get('/api/classrooms.add', function (req, res) {
 
     var params = url.parse(req.url, true).query;
 
-    if (params.id === undefined || params.id === '' ||
-        params.faculty === undefined || params.faculty === '' ||
+    res.write(JSON.stringify(params));
+
+    if (params.faculty === undefined || params.faculty === '' ||
         params.bulding_number === undefined || params.bulding_number === '' ||
         params.classroom_number === undefined || params.classroom_number === '' ||
         params.type_of_classes === undefined || params.type_of_classes === '' ||
