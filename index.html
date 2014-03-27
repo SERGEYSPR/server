@@ -4,10 +4,32 @@
 <head>
     <meta charset="utf-8" />
     <title>Главная</title>
+
+    <style>
+        body {
+            font-family: Calibri;
+            font-size: 14px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .menu_item {
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .menu_item:hover {
+            background-color: #e4e4e4;
+        }
+    </style>
 </head>
 <body>
-    <a href="http://107.170.103.201/students">Список студентов</a><br />
-    <a href="http://107.170.103.201/student/add">Список студентов</a><br />
-    <a href="http://107.170.103.201/statement">Экзаменационная ведомость</a><br />
+    <div style="background-color: #efefef; position: absolute; top: 10px; left: 10px; width: 300px;">
+        <div class="menu_item"><a href="http://107.170.103.201/students">Список студентов</a></div>
+        <div class="menu_item"><a href="http://107.170.103.201/statement">Экзаменационная ведомость</a></div>
+        <div class="menu_item"><a href="http://107.170.103.201/help">Разработчикам</a></div>
+    </div>  
 </body>
 </html>
