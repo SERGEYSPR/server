@@ -7,8 +7,8 @@
 
     <style>
         body {
-            font-family: Consolas;
-            font-size: 13px;
+            font-family: Tahoma;
+            font-size: 11px;
             margin: 0px;
         }
 
@@ -18,8 +18,8 @@
         }
 
         .page_header {
+            cursor: default;
             border-radius: 0 0 7px 7px;
-            font-family: Calibri;
             font-weight: lighter;
             background-color: #4E729A;
             color: #E8EFF7;
@@ -29,18 +29,21 @@
         }
 
         .label {
-            padding: 3px 8px;
-            margin: 1px 0;
+            cursor: pointer;
+            padding: 7px;
         }
 
         .label:hover {
-            background-color: #eee;
+            background-color: #f7f7f7;
         }
 
         .label_head {
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #DAE1E8;
+            color: #45688E;
             font-weight: bold;
-            padding: 4px 8px;
+            padding-top: 4px;
+            padding-bottom: 2px;
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -48,17 +51,17 @@
     <div style="margin-left: auto; margin-right: auto; width: 700px;">
         <div class="page_header">API</div>
         <div style="padding: 10px; margin: 0 10px 10px 10px; border-top: none; border: 1px solid #d9e0e7;">
-            <div class="label_head">students</div>
+            <div class="label_head">Students</div>
             <div class="label"><a href="http://107.170.103.201/help/students.get">students.get</a></div>
             <div class="label"><a href="http://107.170.103.201/help/students.add">students.add</a></div>
             <div class="label"><a href="http://107.170.103.201/help/students.delete">students.delete</a></div>
 
-            <div class="label_head">lecturers</div>
+            <div class="label_head">Lecturers</div>
             <div class="label"><a href="http://107.170.103.201/help/lecturers.get">lecturers.get</a></div>
             <div class="label"><a href="http://107.170.103.201/help/lecturers.add">lecturers.add</a></div>
             <div class="label"><a href="http://107.170.103.201/help/lecturers.delete">lecturers.delete</a></div>
 
-            <div class="label_head">classrooms</div>
+            <div class="label_head">Classrooms</div>
             <div class="label"><a href="http://107.170.103.201/help/classrooms.get">classrooms.get</a></div>
             <div class="label"><a href="http://107.170.103.201/help/classrooms.add">classrooms.add</a></div>
             <div class="label"><a href="http://107.170.103.201/help/classrooms.delete">classrooms.delete</a></div>
