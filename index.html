@@ -16,6 +16,7 @@
         }
 
         .menu_item {
+            color: black;
             cursor: pointer;
             padding: 5px 10px;
         }
@@ -26,10 +27,16 @@
     </style>
 </head>
 <body>
-    <div style="background-color: #efefef; position: absolute; top: 10px; left: 10px; width: 300px;">
-        <div class="menu_item"><a href="http://107.170.103.201/students">Список студентов</a></div>
-        <div class="menu_item"><a href="http://107.170.103.201/statement">Экзаменационная ведомость</a></div>
-        <div class="menu_item"><a href="http://107.170.103.201/help">Разработчикам</a></div>
+    <div style="color: #333; font-size: 24px; padding: 10px;">Главное меню</div>
+    <div style="background-color: #efefef; border-radius: 2px; width: 300px;">
+        <a href=""><div class="menu_item">Расчет учебной нагрузки преподавателя</div></a>
+        <a href=""><div class="menu_item">Расчет учебной нагрузки кафедры</div></a>
+        <a href=""><div class="menu_item">План учебной работы преподавателя</div></a>
+        <a href="http://107.170.103.201/statement"><div class="menu_item">Экзаменационная ведомость</div></a>
+        <a href="http://107.170.103.201/students"><div class="menu_item">Список студентов</div></a>
+        <a href=""><div class="menu_item">Рейтинг студентов</div></a>
+        <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; margin: 0 10px 5px 10px;"></div>
+        <a href="http://107.170.103.201/help"><div class="menu_item">Разработчикам</div></a>
     </div>  
 </body>
 </html>
